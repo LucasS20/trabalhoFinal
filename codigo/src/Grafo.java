@@ -100,6 +100,23 @@ public class Grafo {
      */
     public boolean completo(){
         boolean resposta = true;
+        boolean adiciounou;
+        vertices[] verticesArray = vertices.allElements(vertices);
+        for(i=0;i < vertices.size(); i++) {
+            for(j=0;j < vertices.size(); j++) {
+                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j])
+                if(existeAreta != null && i == j) {
+                    resposta = false;
+                    return resposta;
+                } else if(existeAreta == null) {
+                    this.addAresta(verticesArray[i], verticesArray[j]);
+                    if(!adiciounou) {
+                        resposta = false;
+                        return resposta;
+                    }
+                }
+            }
+        }
         
        return resposta;
     }
