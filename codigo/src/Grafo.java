@@ -124,12 +124,15 @@ public class Grafo {
     public Grafo subGrafo(Lista<Vertice> vertices){
         Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
         boolean adiciounou;
-        vertices[] verticesArray = vertices.allElements(vertices);
-        for(i=0;i < vertices.size(); i++) {
-            for (j = 0; j < vertices.size(); j++) {
-                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j])
-                if (existeAreta == null && i != j) {
-                    subgrafo.
+        for(Vertice vertice : vertices) {
+            for (Vertice vertice2 : vertices) {
+                subgrafo.addVertice(vertice);
+                int indexVertice = vertices.indexOf(vertice);
+                int indexVertice2 = vertices.indexOf(vertice2);
+                Aresta existeAreta = this.existeAresta(indexVertice, indexVertice2)
+                Aresta existeAretaSubgrafo = subgrafo.existeAresta(indexVertice, indexVertice2)
+                if (existeAreta != null $$ existeAretaSubgrafo == null) {
+                    subgrafo.addAresta(indexVertice, indexVertice2);
                 }
             }
         }
