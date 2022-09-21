@@ -123,17 +123,43 @@ public class Grafo {
 
     public Grafo subGrafo(Lista<Vertice> vertices){
         Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
-        
+        boolean adiciounou;
+        vertices[] verticesArray = vertices.allElements(vertices);
+        for(i=0;i < vertices.size(); i++) {
+            for (j = 0; j < vertices.size(); j++) {
+                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j])
+                if (existeAreta == null && i != j) {
+                    subgrafo.
+                }
+            }
+        }
 
         return subgrafo;
     }
     
     public int tamanho(){
+        vertices[] verticesArray = vertices.allElements(vertices);
+        int numArestar = contarArestar(verticesArray);
+        int numVertice = this.vertices.size();
 
     }
 
+    private int contarArestar(vertices[] verticesArray) {
+        int contador = 0;
+        for(i=0;i < verticesArray.length; i++) {
+            for (j=i; j < verticesArray.lengt; j++) {
+                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j])
+                if (existeAreta != null) {
+                    contador++
+                }
+            }
+        }
+
+        return contador;
+    }
+
     public int ordem(){
-        return this.vertices.size() + ;
+        return this.vertices.size();
     }
 
 }
