@@ -1,2 +1,6 @@
 # Diagramas de classe
-Coloque aqui todas as versões do seu diagrama de classes. Cada versão deve começar com um número de dois dígitos, na ordem crescente.
+________________________________________________________________________________________
+## Diagrama V2
+_______________________________________________________________________
+![https://github.com/DisciplinasProgramacao/projeto2-grupo-5-novo/blob/![LPM_GrafoV2_2022](https://user-images.githubusercontent.com/91228030/191393400-5a6d21c9-5259-41c2-b5e8-8e3f06db186f.png)
+_________________________________________________________________________________________________________
