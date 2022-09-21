@@ -72,12 +72,26 @@ public class Grafo {
 
     }
 
+    /**
+     *
+     * @param idVertice
+     * @return returna o Vertice ou null caso não exista
+     */
     public Vertice existeVertice(int idVertice){
         return this.vertices.find(idVertice);
     }
 
+    /**
+     *
+     * @param verticeA
+     * @param verticeB
+     * @return null se a aresta não existe
+     */
     public Aresta existeAresta(int verticeA, int verticeB){
-       return null;
+        Vertice verticeA2 = existeVertice(verticeA);
+        if (veticeA2 == null) return null;
+
+        return verticeA2.existeAresta(verticeB);
     }
     
     /**
