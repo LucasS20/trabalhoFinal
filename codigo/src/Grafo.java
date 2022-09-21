@@ -91,7 +91,7 @@ public class Grafo {
         Vertice verticeA2 = existeVertice(verticeA);
         if (veticeA2 == null) return null;
 
-        return verticeA2.existeAresta(verticeB);
+        return verticeA2.existeAresta(vertice);
     }
     
     /**
