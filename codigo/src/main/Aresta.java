@@ -33,7 +33,7 @@ public class Aresta {
     /**
      * Construtor para arestas com ou sem peso
      * @param peso Peso da aresta
-     * @param dest Vértice de destino
+     * @param destino Vértice de destino
      */
     public Aresta(int peso, int destino){
         this.peso = peso;

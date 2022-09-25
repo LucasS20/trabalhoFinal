@@ -40,9 +40,7 @@ public class Grafo {
         this.nome = nome;
         this.vertices = new ABB<>();
     }
-    public void carregar() throws IOException {
-
-    }
+    public void carregar() {}
 
     public void salvar(String path) throws IOException {
         File arquivo = new File(path);
@@ -87,6 +85,8 @@ public class Grafo {
 
     /**
      * Adiciona, se possível, um vértice ao grafo. O vértice é auto-nomeado com o próximo id disponível.
+     * @param id id do vertice a ser adicionado.
+     * @return true se adicionou e false se não
      */
     public boolean addVertice(int id){
         Vertice novo = new Vertice(id);
@@ -98,6 +98,7 @@ public class Grafo {
      * Não verifica se os vértices pertencem ao grafo.
      * @param origem Vértice de origem
      * @param destino Vértice de destino
+     * @return true se adicionou e false se não
      */
     public boolean addAresta(int origem, int destino){
         boolean adicionou = false;
@@ -105,15 +106,15 @@ public class Grafo {
         Vertice chegada = this.existeVertice(destino);
 
         if(saida != null && chegada != null) {
-            adicionou = saida.addAresta(destino);
+            adicionou = saida.addAresta(1, destino);
         }
 
         return adicionou;
     }
 
     /**
-     *
-     * @param idVertice
+     *  Verifica existencia do vertice
+     * @param idVertice id do Vertice procurado
      * @return returna o Vertice ou null caso não exista
      */
     public Vertice existeVertice(int idVertice){
@@ -121,20 +122,23 @@ public class Grafo {
     }
 
     /**
-     *
-     * @param verticeA
-     * @param verticeB
+     * Verifica existencia de aresta entre vertices
+     * @param origem Vértice de origem
+     * @param destino Vértice de destino
      * @return null se a aresta não existe
      */
-    public Aresta existeAresta(int verticeA, int verticeB){
-        Vertice verticeA2 = existeVertice(verticeA);
-//        if () return null;
+    public Aresta existeAresta(int origem, int destino){
+        Vertice saida = this.existeVertice(origem);
+        Vertice chegada = this.existeVertice(destino);
+        if(saida != null && chegada != null) {
+            return saida.existeAresta(destino);
+        }
 
-        return verticeA2.existeAresta(verticeB);
+        return null;
     }
     
     /**
-     * Verifica se este é um grafo completo. 
+     * Gera grafo completo.
      * @return TRUE para grafo completo, FALSE caso contrário
      */
     public boolean completo(){
