@@ -1,4 +1,8 @@
-/** 
+package main;
+
+import java.io.*;
+
+/**
  * MIT License
  *
  * Copyright(c) 2021 João Caram <caram@pucminas.br>
@@ -36,14 +40,51 @@ public class Grafo {
         this.nome = nome;
         this.vertices = new ABB<>();
     }
-
-    public void carregar(String nomeArquivo){
+    public void carregar() throws IOException {
 
     }
 
-    public void salvar(String nomeArquivo){
-        
+    public void salvar(String path) throws IOException {
+        File arquivo = new File(path);
+
+        FileReader file = new FileReader(arquivo);
+        BufferedReader reader = new BufferedReader(file);
+
+        String line;
+        line = reader.readLine();
+
+        int id;
+        int idOrigem = 0;
+        String[] splitMatrix = line.split(";");
+        boolean firstLine = true;
+
+        while(line != null) {
+            boolean firstValue = true;
+
+            if (firstLine) {
+                for (String matrix : splitMatrix) {
+                    if(!matrix.equals("")) {
+                        id = Integer.parseInt(matrix);
+                        this.addVertice(id);
+                    }
+                }
+                firstLine = false;
+            } else {
+                for (String matrix : splitMatrix) {
+                    if (firstValue) {
+                            idOrigem = Integer.parseInt(matrix);
+                        firstValue = false;
+                    } else if (matrix.equals("1")) {
+                        id = Integer.parseInt(matrix);
+                        this.addAresta(idOrigem, id);
+                    }
+                }
+
+                line = reader.readLine();
+            }
+        }
     }
+
     /**
      * Adiciona, se possível, um vértice ao grafo. O vértice é auto-nomeado com o próximo id disponível.
      */
@@ -62,14 +103,12 @@ public class Grafo {
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
-        if(saida!=null && chegada !=null){
-            saida.addAresta(destino);
-            chegada.addAresta(origem);
-            adicionou = true;
-        }
-        
-        return adicionou;
 
+        if(saida != null && chegada != null) {
+            adicionou = saida.addAresta(destino);
+        }
+
+        return adicionou;
     }
 
     /**
@@ -89,7 +128,7 @@ public class Grafo {
      */
     public Aresta existeAresta(int verticeA, int verticeB){
         Vertice verticeA2 = existeVertice(verticeA);
-        if (veticeA2 == null) return null;
+//        if () return null;
 
         return verticeA2.existeAresta(verticeB);
     }
@@ -99,26 +138,23 @@ public class Grafo {
      * @return TRUE para grafo completo, FALSE caso contrário
      */
     public boolean completo(){
-        boolean resposta = true;
-        boolean adiciounou;
-        vertices[] verticesArray = vertices.allElements(vertices);
-        for(i=0;i < vertices.size(); i++) {
-            for(j=0;j < vertices.size(); j++) {
-                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j])
-                if(existeAreta != null && i == j) {
-                    resposta = false;
-                    return resposta;
-                } else if(existeAreta == null) {
-                    this.addAresta(verticesArray[i], verticesArray[j]);
-                    if(!adiciounou) {
-                        resposta = false;
-                        return resposta;
-                    }
-                }
-            }
-        }
-        
-       return resposta;
+//        boolean adiciounou;
+////        Vertice[] verticesArray = vertices.allElements(vertices);
+//        for(int i=0;i < vertices.size(); i++) {
+//            for(int j=0;j < vertices.size(); j++) {
+////                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j])
+//                if(existeAreta != null && i == j) {
+//+                    return false;
+//                } else if(existeAreta == null) {
+////                    addAresta(verticesArray[i], verticesArray[j]);
+//                    if(!adiciounou) {
+//                        return false;
+//                    }
+//                }
+//            }
+//        }
+//
+//       return true;
     }
 
     public Grafo subGrafo(Lista<Vertice> vertices){
@@ -129,9 +165,9 @@ public class Grafo {
                 subgrafo.addVertice(vertice);
                 int indexVertice = vertices.indexOf(vertice);
                 int indexVertice2 = vertices.indexOf(vertice2);
-                Aresta existeAreta = this.existeAresta(indexVertice, indexVertice2)
-                Aresta existeAretaSubgrafo = subgrafo.existeAresta(indexVertice, indexVertice2)
-                if (existeAreta != null $$ existeAretaSubgrafo == null) {
+                Aresta existeAreta = this.existeAresta(indexVertice, indexVertice2);
+                Aresta existeAretaSubgrafo = subgrafo.existeAresta(indexVertice, indexVertice2);
+                if (existeAreta != null && existeAretaSubgrafo == null) {
                     subgrafo.addAresta(indexVertice, indexVertice2);
                 }
             }
@@ -141,19 +177,19 @@ public class Grafo {
     }
     
     public int tamanho(){
-        vertices[] verticesArray = vertices.allElements(vertices);
+        Vertice[] verticesArray = vertices.allElements(this.vertices);
         int numArestar = contarArestar(verticesArray);
         int numVertice = this.vertices.size();
 
     }
 
-    private int contarArestar(vertices[] verticesArray) {
+    private int contarArestar(Vertice[] verticesArray) {
         int contador = 0;
-        for(i=0;i < verticesArray.length; i++) {
-            for (j=i; j < verticesArray.lengt; j++) {
-                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j])
+        for(int i=0;i < verticesArray.length; i++) {
+            for (int j=i; j < verticesArray.length; j++) {
+                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j]);
                 if (existeAreta != null) {
-                    contador++
+                    contador++;
                 }
             }
         }
