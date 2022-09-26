@@ -213,7 +213,6 @@ public class Grafo {
     public int tamanho() {
         int tamanho = 0;
         Integer[] keys = this.vertices.allKeys();
-        Integer k = keys[0];
 
         Vertice vertice;
 
