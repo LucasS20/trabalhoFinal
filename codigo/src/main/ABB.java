@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Map;
 import java.util.TreeMap;
 
 public class ABB<T> {
@@ -30,5 +31,17 @@ public class ABB<T> {
     public T[] allElements(T[] array){
         T[] allData = this.data.values().toArray(array);
         return allData;
+    }
+
+    public Integer[] allKeys() {
+        Integer[] keys = new Integer[this.data.size()];
+        int i = 0;
+
+        for(Map.Entry<Integer, T> entryData : this.data.entrySet()) {
+            keys[i] = entryData.getKey();
+            i++;
+        }
+
+        return keys;
     }
 }

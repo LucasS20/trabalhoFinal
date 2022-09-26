@@ -1,6 +1,7 @@
 package main;
 
 import java.io.*;
+import java.util.Collection;
 
 /**
  * MIT License
@@ -141,68 +142,89 @@ public class Grafo {
      * Gera grafo completo.
      * @return TRUE para grafo completo, FALSE caso contrário
      */
-    public boolean completo(){
-//        boolean adiciounou;
-////        Vertice[] verticesArray = vertices.allElements(vertices);
+//    public boolean completo(){
+//        Vertice[] verticesArray = vertices.allElements(vertices);
 //        for(int i=0;i < vertices.size(); i++) {
 //            for(int j=0;j < vertices.size(); j++) {
-////                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j])
+//                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j]);
 //                if(existeAreta != null && i == j) {
-//+                    return false;
+//                  return false;
 //                } else if(existeAreta == null) {
-////                    addAresta(verticesArray[i], verticesArray[j]);
-//                    if(!adiciounou) {
-//                        return false;
-//                    }
+//                    addAresta(verticesArray[i], verticesArray[j]);
 //                }
 //            }
 //        }
 //
 //       return true;
-    }
+//    }
 
-    public Grafo subGrafo(Lista<Vertice> vertices){
-        Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
-        boolean adiciounou;
-        for(Vertice vertice : vertices) {
-            for (Vertice vertice2 : vertices) {
-                subgrafo.addVertice(vertice);
-                int indexVertice = vertices.indexOf(vertice);
-                int indexVertice2 = vertices.indexOf(vertice2);
-                Aresta existeAreta = this.existeAresta(indexVertice, indexVertice2);
-                Aresta existeAretaSubgrafo = subgrafo.existeAresta(indexVertice, indexVertice2);
-                if (existeAreta != null && existeAretaSubgrafo == null) {
-                    subgrafo.addAresta(indexVertice, indexVertice2);
-                }
-            }
-        }
-
-        return subgrafo;
-    }
+//    public Grafo subGrafo(Lista<Vertice> vertices){
+//        Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
+//        boolean adiciounou;
+//        for(Vertice vertice : vertices) {
+//            for (Vertice vertice2 : vertices) {
+//                subgrafo.addVertice(vertice);
+//                int indexVertice = vertices.indexOf(vertice);
+//                int indexVertice2 = vertices.indexOf(vertice2);
+//                Aresta existeAreta = this.existeAresta(indexVertice, indexVertice2);
+//                Aresta existeAretaSubgrafo = subgrafo.existeAresta(indexVertice, indexVertice2);
+//                if (existeAreta != null && existeAretaSubgrafo == null) {
+//                    subgrafo.addAresta(indexVertice, indexVertice2);
+//                }
+//            }
+//        }
+//
+//        return subgrafo;
+//    }
     
-    public int tamanho(){
-        Vertice[] verticesArray = vertices.allElements(this.vertices);
-        int numArestar = contarArestar(verticesArray);
-        int numVertice = this.vertices.size();
+//    public int tamanho(){
+//        Vertice[] verticesArray = vertices.allElements(this.vertices);
+//        int numArestar = contarArestar(verticesArray);
+//        int numVertice = this.vertices.size();
+//
+//    }
 
-    }
+//    private int contarArestar(Vertice[] verticesArray) {
+//        int contador = 0;
+//        for(int i=0;i < verticesArray.length; i++) {
+//            for (int j=i; j < verticesArray.length; j++) {
+//                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j]);
+//                if (existeAreta != null) {
+//                    contador++;
+//                }
+//            }
+//        }
+//
+//        return contador;
+//    }
 
-    private int contarArestar(Vertice[] verticesArray) {
-        int contador = 0;
-        for(int i=0;i < verticesArray.length; i++) {
-            for (int j=i; j < verticesArray.length; j++) {
-                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j]);
-                if (existeAreta != null) {
-                    contador++;
-                }
-            }
-        }
-
-        return contador;
-    }
-
+    /**
+     *  A ordem de um grafo se da pelo numero de vertices que ele possui
+     * @return numero de vertices
+     */
     public int ordem(){
         return this.vertices.size();
+    }
+
+    /**
+     * O tamanho de um grafo se da pelo soma do numero de arestas e do numero de vertices
+     * @return a soma do numero de arestar e do numero de vertices do grafo
+     */
+    public int tamanho() {
+        int tamanho = 0;
+        Integer[] keys = this.vertices.allKeys();
+        Integer k = keys[0];
+
+        Vertice vertice;
+
+        for(Integer key : keys) {
+            if(key != null) {
+                vertice = this.existeVertice(key);
+                tamanho += vertice.grau();
+            }
+        }
+
+        return tamanho/2 + this.ordem();
     }
 
 }
