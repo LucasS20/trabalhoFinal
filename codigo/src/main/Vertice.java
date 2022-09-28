@@ -46,7 +46,7 @@ public class Vertice {
      * @param destino Vértice de destino
      */
     public boolean addAresta(int peso, int destino){
-        return this.arestas.add(destino,new Aresta(0, destino));
+        return this.arestas.add(destino, new Aresta(0, destino));
     }
 
     /**
@@ -77,5 +77,9 @@ public class Vertice {
     
     public boolean visitado(){
         return this.visitado;
+    }
+
+    public int getId() {
+        return id;
     }
 }

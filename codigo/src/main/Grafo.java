@@ -1,7 +1,9 @@
 package main;
 
 import java.io.*;
-import java.util.Collection;
+import java.nio.Buffer;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * MIT License
@@ -34,6 +36,8 @@ public class Grafo {
     public final String nome;
     private ABB<Vertice> vertices;
 
+    private final String PATH = "docs/grafos/";
+
     /**
      * Construtor. Cria um grafo vazio com capacidade para MAX_VERTICES
      */
@@ -41,28 +45,28 @@ public class Grafo {
         this.nome = nome;
         this.vertices = new ABB<>();
     }
-    public void carregar() {}
-
-    public void salvar(String path) throws IOException {
+    public void carregar(String nome) throws IOException {
+        String path = PATH + nome + ".csv";
         File arquivo = new File(path);
 
         FileReader file = new FileReader(arquivo);
         BufferedReader reader = new BufferedReader(file);
 
+
         String line;
         line = reader.readLine();
-
         int id;
         int idOrigem = 0;
-        String[] splitMatrix = line.split(";");
         boolean firstLine = true;
+        String[] splitMatrix;
 
         while(line != null) {
+            splitMatrix = line.split(";");
             boolean firstValue = true;
 
             if (firstLine) {
                 for (String matrix : splitMatrix) {
-                    if(!matrix.equals("")) {
+                    if(!matrix.equals(" ")) {
                         id = Integer.parseInt(matrix);
                         this.addVertice(id);
                     }
@@ -71,8 +75,10 @@ public class Grafo {
             } else {
                 for (String matrix : splitMatrix) {
                     if (firstValue) {
+                        if(!matrix.equals(" ")) {
                             idOrigem = Integer.parseInt(matrix);
-                        firstValue = false;
+                            firstValue = false;
+                        }
                     } else if (matrix.equals("1")) {
                         id = Integer.parseInt(matrix);
                         this.addAresta(idOrigem, id);
@@ -82,6 +88,56 @@ public class Grafo {
                 line = reader.readLine();
             }
         }
+        reader.close();
+        file.close();
+    }
+
+
+    public void salvar(String nome) throws IOException {
+        String path = PATH + nome + ".csv";
+
+        FileWriter writer = new FileWriter(path);
+        BufferedWriter bfWriter = new BufferedWriter(writer);
+        int cont = 0;
+        Integer[] keys = this.vertices.allKeys();
+        String keyString;
+
+        bfWriter.append(" ;");
+
+        for(Integer key : keys) {
+            keyString = key.toString();
+            if(cont == keys.length - 1) {
+                bfWriter.append(keyString).append("\n");
+            } else {
+                bfWriter.append(keyString).append(";");
+            }
+            cont++;
+        }
+
+        cont = 0;
+
+        for(Integer keyOrigem : keys) {
+            keyString = keyOrigem.toString();
+            bfWriter.append(keyString).append(";");
+            for(Integer keyDestino : keys) {
+                if((this.existeAresta(keyOrigem, keyDestino)) != null) {
+                    if (cont == keys.length - 1)
+                        bfWriter.append("1\n");
+                    else
+                        bfWriter.append("1;");
+                } else {
+                    if (cont == keys.length - 1)
+                        bfWriter.append("0\n");
+
+                    else
+                        bfWriter.append("0;");
+                }
+                cont++;
+            }
+            cont = 0;
+        }
+        bfWriter.close();
+        writer.close();
     }
 
     /**
@@ -142,61 +198,15 @@ public class Grafo {
      * Gera grafo completo.
      * @return TRUE para grafo completo, FALSE caso contrário
      */
-//    public boolean completo(){
-//        Vertice[] verticesArray = vertices.allElements(vertices);
-//        for(int i=0;i < vertices.size(); i++) {
-//            for(int j=0;j < vertices.size(); j++) {
-//                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j]);
-//                if(existeAreta != null && i == j) {
-//                  return false;
-//                } else if(existeAreta == null) {
-//                    addAresta(verticesArray[i], verticesArray[j]);
-//                }
-//            }
-//        }
-//
-//       return true;
-//    }
+    public boolean completo(){
+        int numVertices = this.ordem();
+        int numArestas = this.tamanho();
+        if(numVertices*(numVertices-1)/2 == numArestas)
+            return true;
 
-//    public Grafo subGrafo(Lista<Vertice> vertices){
-//        Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
-//        boolean adiciounou;
-//        for(Vertice vertice : vertices) {
-//            for (Vertice vertice2 : vertices) {
-//                subgrafo.addVertice(vertice);
-//                int indexVertice = vertices.indexOf(vertice);
-//                int indexVertice2 = vertices.indexOf(vertice2);
-//                Aresta existeAreta = this.existeAresta(indexVertice, indexVertice2);
-//                Aresta existeAretaSubgrafo = subgrafo.existeAresta(indexVertice, indexVertice2);
-//                if (existeAreta != null && existeAretaSubgrafo == null) {
-//                    subgrafo.addAresta(indexVertice, indexVertice2);
-//                }
-//            }
-//        }
-//
-//        return subgrafo;
-//    }
-    
-//    public int tamanho(){
-//        Vertice[] verticesArray = vertices.allElements(this.vertices);
-//        int numArestar = contarArestar(verticesArray);
-//        int numVertice = this.vertices.size();
-//
-//    }
+        return false;
+    }
 
-//    private int contarArestar(Vertice[] verticesArray) {
-//        int contador = 0;
-//        for(int i=0;i < verticesArray.length; i++) {
-//            for (int j=i; j < verticesArray.length; j++) {
-//                Aresta existeAreta = this.existeAresta(verticesArray[i], verticesArray[j]);
-//                if (existeAreta != null) {
-//                    contador++;
-//                }
-//            }
-//        }
-//
-//        return contador;
-//    }
 
     /**
      *  A ordem de um grafo se da pelo numero de vertices que ele possui
@@ -212,18 +222,29 @@ public class Grafo {
      */
     public int tamanho() {
         int tamanho = 0;
-        Integer[] keys = this.vertices.allKeys();
 
-        Vertice vertice;
-
-        for(Integer key : keys) {
-            if(key != null) {
-                vertice = this.existeVertice(key);
-                tamanho += vertice.grau();
-            }
+        for(Vertice vertice : getVertices()) {
+            tamanho += vertice.grau();
         }
 
         return tamanho/2 + this.ordem();
     }
+
+    private Vertice[] getVertices() {
+        Integer[] keys = this.vertices.allKeys();
+        Integer tamanho = keys.length;
+        Vertice[] vertices = new Vertice[tamanho];
+
+        for(int i = 0; i < tamanho; i++) {
+            if(keys[i] != null)
+                vertices[i] = this.existeVertice(keys[i]);
+        }
+
+        return vertices;
+    }
+
+//    public boolean euleriano() {}
+//
+//    public Lista<Vertice> caminhoEuleriano() {}
 
 }
