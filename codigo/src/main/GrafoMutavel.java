@@ -145,7 +145,7 @@ public class GrafoMutavel extends Grafo {
     public boolean delAresta(int origem, int destino) {
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
-        if(saida.delAresta(destino) && chegada.delAresta(destino)
+        if(saida.delAresta(destino) && chegada.delAresta(destino))
             return true;
 
         return false;    
