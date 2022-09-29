@@ -49,6 +49,10 @@ public class Vertice {
         return this.arestas.add(destino, new Aresta(0, destino));
     }
 
+    public boolean delAresta(int destino) {
+        return this.arestas.del(destino);
+    }
+
     /**
      * Verifica se já existe aresta entre este vértice e um destino. Método privado
      * @param destino Vértice de destino

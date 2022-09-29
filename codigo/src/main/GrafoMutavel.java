@@ -119,6 +119,10 @@ public class GrafoMutavel extends Grafo {
         return this.vertices.add(id, novo);
     }
 
+    public boolean removeVertice(int id) {
+        return this.vertices.del(id);
+    }
+
     /**
      * Adiciona uma aresta entre dois vértices do grafo. 
      * Não verifica se os vértices pertencem ao grafo.
@@ -136,5 +140,14 @@ public class GrafoMutavel extends Grafo {
         }
 
         return adicionou;
+    }
+    
+    public boolean delAresta(int origem, int destino) {
+        Vertice saida = this.existeVertice(origem);
+        Vertice chegada = this.existeVertice(destino);
+        if(saida.delAresta(destino) && chegada.delAresta(destino)
+            return true;
+
+        return false;    
     }
 }

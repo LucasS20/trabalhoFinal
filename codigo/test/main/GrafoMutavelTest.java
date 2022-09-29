@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-public class GrafoTest {
-    Grafo teste = new Grafo("test");
-    Grafo teste2 = new Grafo("teste2");
+public class GrafoMutavelTest {
+    GrafoMutavel teste = new GrafoMutavel("test");
+    GrafoMutavel teste2 = new GrafoMutavel("teste2");
 
     @Test
     void add_existeVertice() {
@@ -96,6 +96,29 @@ public class GrafoTest {
         teste.carregar("completo");
 
         Assertions.assertEquals(true, teste.completo());
+    }
+
+    @Test
+    void removeVertice() {
+        teste.addVertice(1);
+        teste.addVertice(2);
+
+        teste.removeVertice(2);
+
+        Assertions.assertEquals(null, teste.existeVertice(1));
+    }
+
+    
+    @Test
+    void delAresta() {
+        teste.addVertice(1);
+        teste.addVertice(2);
+
+        teste.addAresta(1, 2);
+
+        teste.delAresta(1, 2);
+
+        Assertions.assertEquals(null, teste.existeAresta(1, 2));
     }
 
 }
