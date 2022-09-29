@@ -68,6 +68,8 @@ public class GrafoMutavel extends Grafo {
         FileWriter writer = new FileWriter(path);
         BufferedWriter bfWriter = new BufferedWriter(writer);
         int cont = 0;
+        Vertice[] vertices = new Vertice[this.ordem()];
+        vertices = this.vertices.allElements(vertices);
         Integer[] keys = this.vertices.allKeys();
         String keyString;
 
