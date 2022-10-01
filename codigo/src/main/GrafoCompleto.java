@@ -26,12 +26,12 @@ public class GrafoCompleto extends Grafo {
         }
     }
 
-    private boolean addVertice(int id){
+    private void addVertice(int id){
         Vertice novo = new Vertice(id);
-        return this.vertices.add(id, novo);
+        this.vertices.add(id, novo);
     }
 
-    private boolean addAresta(int origem, int destino){
+    private void addAresta(int origem, int destino){
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
@@ -40,7 +40,6 @@ public class GrafoCompleto extends Grafo {
             adicionou = saida.addAresta(1, destino);
         }
 
-        return adicionou;
     }
 
 }

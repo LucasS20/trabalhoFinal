@@ -72,6 +72,5 @@ public class GrafoPonderado extends GrafoMutavel {
 
         return adicionou;
     }
-    }
 }
 
