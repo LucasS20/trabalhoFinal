@@ -71,10 +71,8 @@ public class Grafo {
     public boolean completo(){
         int numVertices = this.ordem();
         int numArestas = this.tamanho();
-        if(numVertices*(numVertices-1)/2 == numArestas)
-            return true;
 
-        return false;
+        return numVertices * (numVertices - 1) / 2 == numArestas;
     }
 
 
@@ -93,24 +91,14 @@ public class Grafo {
     public int tamanho() {
         int tamanho = 0;
 
-        for(Vertice vertice : getVertices()) {
+        Vertice[] vertices = new Vertice[this.ordem()];
+        vertices = this.vertices.allElements(vertices);
+
+        for(Vertice vertice : vertices) {
             tamanho += vertice.grau();
         }
 
         return tamanho/2 + this.ordem();
-    }
-
-    private Vertice[] getVertices() {
-        Integer[] keys = this.vertices.allKeys();
-        Integer tamanho = keys.length;
-        Vertice[] vertices = new Vertice[tamanho];
-
-        for(int i = 0; i < tamanho; i++) {
-            if(keys[i] != null)
-                vertices[i] = this.existeVertice(keys[i]);
-        }
-
-        return vertices;
     }
 
 //    public boolean euleriano() {}

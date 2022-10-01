@@ -75,12 +75,12 @@ public class GrafoMutavel extends Grafo {
 
         bfWriter.append(" ;");
 
-        for(Integer key : keys) {
-            keyString = key.toString();
+        for(Vertice vertice : vertices) {
+
             if(cont == keys.length - 1) {
-                bfWriter.append(keyString).append("\n");
+                bfWriter.append((char) vertice.getId()).append("\n");
             } else {
-                bfWriter.append(keyString).append(";");
+                bfWriter.append((char) vertice.getId()).append(";");
             }
             cont++;
         }
@@ -147,9 +147,6 @@ public class GrafoMutavel extends Grafo {
     public boolean delAresta(int origem, int destino) {
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
-        if(saida.delAresta(destino) && chegada.delAresta(destino))
-            return true;
-
-        return false;    
+        return saida.delAresta(destino) && chegada.delAresta(destino);
     }
 }
