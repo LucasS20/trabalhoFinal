@@ -6,10 +6,8 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 
 * Andre Sathler
 * Francisley Domingos Magalhaes
-* Nome completo do aluno 3
-* Nome completo do aluno 4
-* Nome completo do aluno 4
-* Nome completo do aluno 4
+* Lucas Santos
+* Matheus Fontes
 
 ## Professores responsáveis
 
