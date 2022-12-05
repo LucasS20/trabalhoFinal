@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class LerCSV {
 
@@ -27,10 +28,11 @@ public class LerCSV {
         try {
             br = new BufferedReader(new FileReader(caminho));
             while ((linha = br.readLine()) != null) {
-
                 String[] dadosLinha = linha.split(csvDivisor);
-                Cidade cidade = new Cidade(dadosLinha[NOME], Double.parseDouble(dadosLinha[LATITUDE]), Double.parseDouble(dadosLinha[LONGITUDE]), dadosLinha[ESTADO]);
-                listaCidades.add(cidade);
+                if(!dadosLinha[NOME].equals("city")) {
+                    Cidade cidade = new Cidade(dadosLinha[NOME], Double.parseDouble(dadosLinha[LATITUDE]), Double.parseDouble(dadosLinha[LONGITUDE]), dadosLinha[ESTADO]);
+                    listaCidades.add(cidade);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
