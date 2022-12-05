@@ -12,21 +12,23 @@ public class App {
         ArrayList<Cidade> listaCidades = arquivo.lerCidades();
         GrafoPonderado grafoCidades = new GrafoPonderado("GrafoCidades");
         for (Cidade cidade : listaCidades) {
-            HashMap<Double, Cidade> cidadeProximas = new HashMap<>();
+            HashMap<Double, Cidade> cidadeDistancias = new HashMap<>();
             ArrayList<Double> distancias = new ArrayList<>();
             listaCidades.forEach(c -> {
                 double distancia = cidade.distanciaEntreCidades(c);
-                cidadeProximas.put(distancia, c);
-                distancias.add(distancia);
+                if(distancia != 0) {
+                    cidadeDistancias.put(distancia, c);
+                    distancias.add(distancia);
+                }
             });
 
-            List<Double> dSorted = distancias.stream().sorted().limit(4).toList();
+            List<Cidade> cidadeProximas = new ArrayList<>();
 
-            List<Cidade> cSorted = new ArrayList<>();
-            List<Cidade> finalCSorted = cSorted;
-            dSorted.forEach(ds -> finalCSorted.add(cidadeProximas.get(ds)));
+            distancias.stream().sorted().limit(4).toList()
+                    .forEach(ds -> cidadeProximas.add(cidadeDistancias.get(ds)));
 
-            finalCSorted.forEach(System.out::println);
+            System.out.println("cidade" + cidade);
+            cidadeProximas.forEach(System.out::println);
         }
     }
 
