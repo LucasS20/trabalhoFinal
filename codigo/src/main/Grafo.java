@@ -41,11 +41,19 @@ public class Grafo {
 
     /**
      *  Verifica existencia do vertice
-     * @param idVertice id do Vertice procurado
+     * @param id do Vertice procurado
      * @return returna o Vertice ou null caso não exista
      */
-    public Vertice existeVertice(int idVertice){
-        return this.vertices.find(idVertice);
+    public Vertice existeVertice(String id) {
+        return this.vertices.find(id);
+    }
+
+    public void grauEVizinhos(String id) {
+        Vertice vertice = this.existeVertice(id);
+
+        System.out.println("Grau: " + vertice.grau());
+
+        vertice.getVizinhos().forEach(v -> System.out.println("Cidades vizinhas: " + v.getId()));
     }
 
     /**
@@ -54,7 +62,7 @@ public class Grafo {
      * @param destino Vértice de destino
      * @return null se a aresta não existe
      */
-    public Aresta existeAresta(int origem, int destino){
+    public Aresta existeAresta(String origem, String destino){
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
         if(saida != null && chegada != null) {
@@ -99,6 +107,11 @@ public class Grafo {
         }
 
         return tamanho/2 + this.ordem();
+    }
+
+    public Vertice[] getVertices() {
+        Vertice[] vertices1 = new Vertice[this.vertices.size()];
+        return this.vertices.allElements(vertices1);
     }
 
 //    public boolean euleriano() {}

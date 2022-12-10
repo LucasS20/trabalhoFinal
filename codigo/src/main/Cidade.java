@@ -2,13 +2,16 @@ package main;
 
 import static java.lang.Math.*;
 
-public class Cidade {
-    private final String nome;
+public class Cidade extends Vertice {
     private final double latitude;
     private final double longitude;
     private final String estado;
 
+    private final String nome;
+
+
     public Cidade(String nome, double latitude, double longitude, String estado) {
+        super(nome + ", " + estado);
         this.nome = nome;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -27,5 +30,9 @@ public class Cidade {
             dist = dist * 1.609344;
             return (dist);
         }
+    }
+
+    public String getName() {
+        return this.nome;
     }
 }

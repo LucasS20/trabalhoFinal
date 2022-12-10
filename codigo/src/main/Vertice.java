@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 /**
  * MIT License
  *
@@ -26,15 +28,15 @@ package main;
 
 public class Vertice {
     
-    private ABB<Aresta> arestas;    
-    private final int  id;
+    private ABB<Aresta> arestas;
     private boolean visitado;
+    private final String id;
 
-/**
+    /**
      * Construtor para criação de vértice identificado
-     * @param id Número/id do vértice a ser criado (atributo final).
+     * @param id  do vértice a ser criado (atributo final).
      */
-    public Vertice(int id){
+    public Vertice(String id){
         this.id = id;
         this.arestas = new ABB<Aresta>();
         this.visitado = false;
@@ -45,20 +47,20 @@ public class Vertice {
      * @param peso Peso da aresta (1 para grafos não ponderados)
      * @param destino Vértice de destino
      */
-    public boolean addAresta(double peso, int destino){
-        return this.arestas.add(destino, new Aresta(0, destino));
+    public boolean addAresta(double peso, Vertice destino) {
+        return this.arestas.add(destino.getId(), new Aresta(peso, destino));
     }
 
-    public boolean delAresta(int destino) {
+    public boolean delAresta(String destino) {
         return this.arestas.del(destino);
     }
 
     /**
-     * Verifica se já existe aresta entre este vértice e um destino. Método privado
+     * Verifica se já existe aresta entre este vértice e um destino.
      * @param destino Vértice de destino
      * @return TRUE se existe aresta, FALSE se não
      */
-    public Aresta existeAresta(int destino){
+    public Aresta existeAresta(String destino){
         return this.arestas.find(destino);
 
     }
@@ -83,7 +85,20 @@ public class Vertice {
         return this.visitado;
     }
 
-    public int getId() {
-        return id;
+
+    public String getId() {
+        return this.id;
+    }
+
+    public ArrayList<Vertice> getVizinhos() {
+        ArrayList<Vertice> vizinhos = new ArrayList<>();
+        Aresta[] arestasArray = new Aresta[this.arestas.size()];
+        arestasArray = this.arestas.allElements(arestasArray);
+
+        for(Aresta aresta : arestasArray) {
+            vizinhos.add(aresta.getDestino());
+        }
+
+        return vizinhos;
     }
 }

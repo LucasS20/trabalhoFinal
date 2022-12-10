@@ -19,7 +19,7 @@ public class GrafoCompletoTest {
 
     @Test
     void existeVertice() {
-        Assertions.assertNotEquals(null, teste.existeVertice(1));
+        Assertions.assertNotEquals(null, teste.existeVertice("1"));
     }
 
 //    @Test

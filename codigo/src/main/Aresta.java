@@ -27,7 +27,8 @@ package main;
 public class Aresta {
 
     private double peso;
-    private int destino;
+
+    private Vertice destino;
     private boolean visitada;
 
     /**
@@ -35,7 +36,7 @@ public class Aresta {
      * @param peso Peso da aresta
      * @param destino Vértice de destino
      */
-    public Aresta(double peso, int destino){
+    public Aresta(double peso, Vertice destino){
         this.peso = peso;
         this.destino = destino;
         this.visitada = false;
@@ -53,7 +54,7 @@ public class Aresta {
      * Método de acesso para o destino da aresta
      * @return the destino
      */
-    public int destino() {
+    public Vertice destino() {
         return this.destino;
     }
 
@@ -69,6 +70,8 @@ public class Aresta {
         return this.visitada;
     }
 
-    
+    public Vertice getDestino() {
+        return destino;
+    }
 
 }

@@ -15,29 +15,29 @@ public class GrafoCompleto extends Grafo {
         this.ordem = ordem;
 
         for(int i = 1; i <= ordem; i++ ) {
-            this.addVertice(i);
+            this.addVertice(String.valueOf(i));
         }
 
         for(int i = 1; i <= ordem; i++) {
             for (int j = 1; j <= ordem; j++ ) {
                 if( i != j )
-                    addAresta(i,j);
+                    addAresta(String.valueOf(i), String.valueOf(j));
             }
         }
     }
 
-    private void addVertice(int id){
-        Vertice novo = new Vertice(id);
-        this.vertices.add(id, novo);
+    private void addVertice(String nome){
+        Vertice novo = new Vertice(nome);
+        this.vertices.add(nome, novo);
     }
 
-    private void addAresta(int origem, int destino){
+    private void addAresta(String origem, String destino){
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
 
         if(saida != null && chegada != null) {
-            adicionou = saida.addAresta(1, destino);
+            adicionou = saida.addAresta(1, chegada);
         }
 
     }
