@@ -24,7 +24,7 @@ public class App {
 
             List<Cidade> cidadeProximas = new ArrayList<>();
 
-            distancias.stream().sorted().limit(4).toList()
+            distancias.stream().sorted().limit(4)
                     .forEach(ds -> cidadeProximas.add(cidadeDistancias.get(ds)));
 
             System.out.println("cidade" + cidade);
