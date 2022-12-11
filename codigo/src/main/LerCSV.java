@@ -16,6 +16,10 @@ public class LerCSV {
         this.caminho = caminho;
     }
 
+    /**
+     * Método que retorna uma lista de cidades lidas de um arquivo
+     * @return lista de cidades
+     */
     public ArrayList<Cidade> lerCidades() {
         ArrayList<Cidade> listaCidades = new ArrayList<>();
         final int NOME = 0;
@@ -29,7 +33,7 @@ public class LerCSV {
             br = new BufferedReader(new FileReader(caminho));
             while ((linha = br.readLine()) != null) {
                 String[] dadosLinha = linha.split(csvDivisor);
-                if(!dadosLinha[NOME].equals("city")) {
+                if (!dadosLinha[NOME].equals("city")) {
                     Cidade cidade = new Cidade(dadosLinha[NOME], Double.parseDouble(dadosLinha[LATITUDE]), Double.parseDouble(dadosLinha[LONGITUDE]), dadosLinha[ESTADO]);
                     listaCidades.add(cidade);
                 }

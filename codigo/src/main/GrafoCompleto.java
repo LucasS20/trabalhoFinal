@@ -31,6 +31,11 @@ public class GrafoCompleto extends Grafo {
         this.vertices.add(nome, novo);
     }
 
+    /**
+     * adiciona a aresta no grafo
+     * @param origem vertice de origem
+     * @param destino vertice de destino
+     */
     private void addAresta(String origem, String destino){
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);

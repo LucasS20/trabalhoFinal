@@ -62,6 +62,11 @@ public class Vertice {
         return this.arestas.add(destino.getId(), new Aresta(peso, destino));
     }
 
+    /**
+     * retira um vértice do grafo
+     * @param destino qual vertice será retirado
+     * @return True se retirado, false se nao existe
+     */
     public boolean delAresta(String destino) {
         return this.arestas.del(destino);
     }
@@ -74,7 +79,6 @@ public class Vertice {
      */
     public Aresta existeAresta(String destino) {
         return this.arestas.find(destino);
-
     }
 
     /**
@@ -114,7 +118,6 @@ public class Vertice {
 
         return vizinhos;
     }
-
 
 
     public void setDistance(int i) {

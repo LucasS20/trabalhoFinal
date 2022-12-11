@@ -50,6 +50,10 @@ public class Grafo {
         return this.vertices.find(id);
     }
 
+    /**
+     * Retorna quantas arestas incidem no vertice e as cidades que sao vizinhas do vertice
+     * @param id vertice que será utilizado
+     */
     public void grauEVizinhos(String id) {
         Vertice vertice = this.existeVertice(id);
 
@@ -110,6 +114,7 @@ public class Grafo {
 
         return tamanho / 2 + this.ordem();
     }
+
 
     public Vertice[] getVertices() {
         Vertice[] vertices1 = new Vertice[this.vertices.size()];

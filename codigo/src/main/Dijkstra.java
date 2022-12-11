@@ -31,6 +31,12 @@ public class Dijkstra {
         return graph;
     }
 
+    /**
+     * Método privado que calcula a distancia minima a partir do nó raiz
+     * @param evaluationNode
+     * @param edgeWeigh peso da aresta
+     * @param sourceNode Vertice de inicio
+     */
     private static void CalculateMinimumDistance(Vertice evaluationNode, Integer edgeWeigh, Vertice sourceNode) {
         Integer sourceDistance = sourceNode.getDistance();
         if (sourceDistance + edgeWeigh < evaluationNode.getDistance()) {
@@ -41,6 +47,11 @@ public class Dijkstra {
         }
     }
 
+    /**
+     * Método privado que retorna qual o vertice que está mais perto entre as possiveis escolhas
+     * @param unsettledNodes
+     * @return
+     */
     private static Vertice getLowestDistanceNode(Set<Vertice> unsettledNodes) {
         Vertice lowestDistanceNode = null;
         int lowestDistance = Integer.MAX_VALUE;
