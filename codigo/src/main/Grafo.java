@@ -2,19 +2,19 @@ package main;
 
 /**
  * MIT License
- *
+ * <p>
  * Copyright(c) 2021 João Caram <caram@pucminas.br>
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,17 +24,19 @@ package main;
  * SOFTWARE.
  */
 
-/** 
+import java.util.*;
+import java.util.Map.Entry;
+
+/**
  * Classe básica para um Grafo simples
  */
 public class Grafo {
     public final String nome;
     protected ABB<Vertice> vertices;
-
     /**
      * Construtor. Cria um grafo vazio com capacidade para MAX_VERTICES
      */
-    public Grafo(String nome){
+    public Grafo(String nome) {
         this.nome = nome;
         this.vertices = new ABB<>();
     }
@@ -62,21 +64,21 @@ public class Grafo {
      * @param destino Vértice de destino
      * @return null se a aresta não existe
      */
-    public Aresta existeAresta(String origem, String destino){
+    public Aresta existeAresta(String origem, String destino) {
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
-        if(saida != null && chegada != null) {
+        if (saida != null && chegada != null) {
             return saida.existeAresta(destino);
         }
 
         return null;
     }
-    
+
     /**
      * Gera grafo completo.
      * @return TRUE para grafo completo, FALSE caso contrário
      */
-    public boolean completo(){
+    public boolean completo() {
         int numVertices = this.ordem();
         int numArestas = this.tamanho();
 
@@ -88,7 +90,7 @@ public class Grafo {
      *  A ordem de um grafo se da pelo numero de vertices que ele possui
      * @return numero de vertices
      */
-    public int ordem(){
+    public int ordem() {
         return this.vertices.size();
     }
 
@@ -102,11 +104,11 @@ public class Grafo {
         Vertice[] vertices = new Vertice[this.ordem()];
         vertices = this.vertices.allElements(vertices);
 
-        for(Vertice vertice : vertices) {
+        for (Vertice vertice : vertices) {
             tamanho += vertice.grau();
         }
 
-        return tamanho/2 + this.ordem();
+        return tamanho / 2 + this.ordem();
     }
 
     public Vertice[] getVertices() {
@@ -114,8 +116,12 @@ public class Grafo {
         return this.vertices.allElements(vertices1);
     }
 
-//    public boolean euleriano() {}
-//
-//    public Lista<Vertice> caminhoEuleriano() {}
+
+    //REFERENCIA
+
+
 
 }
+    
+
+

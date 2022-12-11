@@ -32,6 +32,11 @@ public class Cidade extends Vertice {
         }
     }
 
+    @Override
+    public String toString() {
+        return nome + ", " + estado;
+    }
+
     public String getName() {
         return this.nome;
     }

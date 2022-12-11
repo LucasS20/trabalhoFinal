@@ -25,9 +25,7 @@ package main;
  */
 
 public class Aresta {
-
     private double peso;
-
     private Vertice destino;
     private boolean visitada;
 
