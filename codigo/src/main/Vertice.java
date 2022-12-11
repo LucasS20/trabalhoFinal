@@ -57,6 +57,8 @@ public class Vertice {
      * @param destino Vértice de destino
      */
     public boolean addAresta(double peso, Vertice destino) {
+        this.adjascentes.put(destino, (int) peso);
+
         return this.arestas.add(destino.getId(), new Aresta(peso, destino));
     }
 
@@ -134,4 +136,5 @@ public class Vertice {
     public Map<Vertice, Integer> getAdjascentes() {
         return this.adjascentes;
     }
+
 }

@@ -116,6 +116,17 @@ public class Grafo {
         return this.vertices.allElements(vertices1);
     }
 
+    private TreeMap<String, Vertice> getVerticesAbb() {
+        return this.vertices.clone();
+    }
+
+    public Grafo clone(String nome) {
+        Grafo grafoClone = new Grafo(nome);
+        grafoClone.vertices.addAll(getVerticesAbb());
+
+        return grafoClone;
+    }
+
 
     //REFERENCIA
 

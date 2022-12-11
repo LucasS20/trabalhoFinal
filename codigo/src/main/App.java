@@ -1,11 +1,12 @@
 package main;
 
+import java.lang.management.GarbageCollectorMXBean;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class App {
-
 
     public static void main(String[] args) throws Exception {
         GrafoMutavel grafoCidades = gerarGrafo();
@@ -14,47 +15,12 @@ public class App {
 //
 //       delVerticeOuAresta(grafoCidades);
 
-        HashMap<Vertice, Integer> relacao = buscarComponentesConexos(grafoCidades);
-        relacao.forEach((v, i) -> {
-        });
 
-        Map<Integer, ArrayList<Vertice>> reverseMap = new HashMap<>(
-                relacao.entrySet().stream()
-                        .collect(Collectors.groupingBy(Map.Entry::getValue)).values().stream()
-                        .collect(Collectors.toMap(
-                                item -> item.get(0).getValue(),
-                                item -> new ArrayList<>(
-                                        item.stream()
-                                                .map(Map.Entry::getKey)
-                                                .collect(Collectors.toList())
-                                ))
-                        ));
+        components(grafoCidades);
+
+//        getCaminhoMinimo("Belo Horizonte, Minas Gerais", "Abaeté, Minas Gerais", grafoCidades);
 
 
-        System.out.println(reverseMap);
-    }
-
-    public static HashMap<Vertice, Integer> buscarComponentesConexos(GrafoMutavel grafoCidades) {
-        HashMap<Vertice, Integer> relacao = new HashMap<>();
-        int id = 0;
-
-        for (Vertice v: grafoCidades.getVertices()) {
-            if (relacao.get(v) == null) {
-                determinaComponenteConexo(v, id, grafoCidades, relacao);
-                id++;
-            }
-        }
-        return relacao;
-    }
-
-    private static void determinaComponenteConexo(Vertice cidade, int id, GrafoMutavel grafoCidades, Map<Vertice, Integer> relacao) {
-        relacao.put(cidade, id);
-
-        grafoCidades.getVizinhos(cidade).forEach(c -> {
-            if (relacao.get(c) == null) {
-                determinaComponenteConexo(c, id, grafoCidades, relacao);
-            }
-        });
     }
 
     private static void delVerticeOuAresta(GrafoMutavel grafoCidades) {
@@ -106,5 +72,25 @@ public class App {
         }
 
         return grafoCidades;
+    }
+
+    private static void getCaminhoMinimo(String origem, String destino, GrafoMutavel grafoCidades) {
+        Grafo caminhos = Dijkstra.caminhosMaisCurtos(grafoCidades, grafoCidades.existeVertice(origem));
+        List<Vertice> vertice = Arrays.stream(caminhos.getVertices()).filter(v -> v.getDistance() != Integer.MAX_VALUE).toList();
+
+        System.out.println(vertice.stream().filter(v -> v.getId().equals(destino)).findFirst().get().getDistance());
+    }
+
+    private static void components(Grafo grafoCidades) {
+        List<Vertice> vertices = new ArrayList<>();
+        for (Vertice cidade : grafoCidades.getVertices()) {
+            Grafo caminhos = grafoCidades.clone("Grafocaminhos");
+            if(!vertices.contains(cidade)) {
+                caminhos = Dijkstra.caminhosMaisCurtos(caminhos, caminhos.existeVertice(cidade.getId()));
+                vertices = Arrays.stream(caminhos.getVertices()).filter(v -> v.getDistance() != Integer.MAX_VALUE).toList();
+            }
+
+            System.out.println(vertices);
+        }
     }
 }

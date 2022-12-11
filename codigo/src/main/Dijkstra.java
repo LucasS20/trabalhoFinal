@@ -10,24 +10,23 @@ public class Dijkstra {
     public static Grafo caminhosMaisCurtos(Grafo graph, Vertice raiz) {
         raiz.setDistance(0);
 
-        Set<Vertice> settledNodes = new HashSet<>();
-        Set<Vertice> unsettledNodes = new HashSet<>();
+        Set<Vertice> settledVertice = new HashSet<>();
+        Set<Vertice> unsettledVertice = new HashSet<>();
 
-        unsettledNodes.add(raiz);
+        unsettledVertice.add(raiz);
 
-        while (unsettledNodes.size() != 0) {
-            Vertice currentNode = getLowestDistanceNode(unsettledNodes);
-            unsettledNodes.remove(currentNode);
-            for (Map.Entry<Vertice, Integer> adjacencyPair :
-                    currentNode.getAdjascentes().entrySet()) {
+        while (unsettledVertice.size() != 0) {
+            Vertice currentVertice = getLowestDistanceNode(unsettledVertice);
+            unsettledVertice.remove(currentVertice);
+            for (Map.Entry<Vertice, Integer> adjacencyPair : currentVertice.getAdjascentes().entrySet()) {
                 Vertice adjacentNode = adjacencyPair.getKey();
                 Integer edgeWeight = adjacencyPair.getValue();
-                if (!settledNodes.contains(adjacentNode)) {
-                    CalculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
-                    unsettledNodes.add(adjacentNode);
+                if (!settledVertice.contains(adjacentNode)) {
+                    CalculateMinimumDistance(adjacentNode, edgeWeight, currentVertice);
+                    unsettledVertice.add(adjacentNode);
                 }
             }
-            settledNodes.add(currentNode);
+            settledVertice.add(currentVertice);
         }
         return graph;
     }
@@ -45,11 +44,11 @@ public class Dijkstra {
     private static Vertice getLowestDistanceNode(Set<Vertice> unsettledNodes) {
         Vertice lowestDistanceNode = null;
         int lowestDistance = Integer.MAX_VALUE;
-        for (Vertice node : unsettledNodes) {
-            int nodeDistance = node.getDistance();
-            if (nodeDistance < lowestDistance) {
-                lowestDistance = nodeDistance;
-                lowestDistanceNode = node;
+        for (Vertice vertice : unsettledNodes) {
+            int verticeDistance = vertice.getDistance();
+            if (verticeDistance < lowestDistance) {
+                lowestDistance = verticeDistance;
+                lowestDistanceNode = vertice;
             }
         }
         return lowestDistanceNode;

@@ -1,6 +1,5 @@
 package main;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -55,5 +54,17 @@ public class ABB<T> {
         }
 
         return keys;
+    }
+
+    public TreeMap<String, T> clone() {
+        TreeMap<String, T> cloneABB = new TreeMap<>();
+
+        cloneABB.putAll(this.data);
+
+        return cloneABB;
+    }
+
+    public void addAll(TreeMap<String, T> value){
+        this.data.putAll(value);
     }
 }
