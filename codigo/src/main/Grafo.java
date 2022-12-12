@@ -142,7 +142,6 @@ public class Grafo {
         origem.setDistance(0);
         origem.visitar();
         double distancia = destino.getDistance();
-        List<Vertice> caminhoMinimo = new ArrayList<>();
 
         if(origem.getVizinhos().contains(destino)) {
             destino.setDistance((origem.getDistance() + origem.existeAresta(destino.getId()).peso()));
