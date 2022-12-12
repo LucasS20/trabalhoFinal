@@ -56,10 +56,16 @@ public class Aresta {
         return this.destino;
     }
 
+    /**
+     * seta visitada para TRUE
+     */
     public void visitar(){
         this.visitada = true;
     }
 
+    /**
+     * seta visitada para FALSE
+     */
     public void limparVisita(){
         this.visitada = false;
     }

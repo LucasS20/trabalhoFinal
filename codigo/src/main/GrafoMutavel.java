@@ -158,7 +158,6 @@ public class GrafoMutavel extends Grafo {
     private int getVerticesSize() {
         return this.vertices.size();
     }
-
     public Vertice getVerticeByName(String name) {
         Vertice[] vertices = new Vertice[this.ordem()];
         return Arrays.stream(this.vertices.allElements(vertices))

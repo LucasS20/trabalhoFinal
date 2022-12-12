@@ -18,6 +18,11 @@ public class Cidade extends Vertice {
         this.estado = estado;
     }
 
+    /**
+     * Método utilizado para calcular distancia entre a cidade atual, e a cidade passada como parametro
+     * @param cidade2 cidade que vai ser comparada com a atual
+     * @return um double referente a distancia entre as duas cidades
+     */
     public double distanciaEntreCidades(Cidade cidade2) {
         if ((this.latitude == cidade2.latitude) && (this.longitude == cidade2.longitude)) {
             return 0;

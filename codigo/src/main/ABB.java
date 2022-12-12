@@ -11,10 +11,21 @@ public class ABB<T> {
         this.data = new TreeMap<>();
     }
 
+    /**
+     * Procura e retorna o objeto
+     * @param key chave para pesquisa
+     * @return objeto dentro da arvore
+     */
     public T find(String key){
         return this.data.get(key);
     }
 
+    /**
+     * Método que insere o objeto na arvore
+     * @param key objeto a se
+     * @param newElement
+     * @return True se adicionado corretamente, false caso ja exista
+     */
     public boolean add(String key, T newElement){
         boolean result = false;
         if(!this.data.containsKey(key)){
@@ -24,6 +35,11 @@ public class ABB<T> {
         return result;
     }
 
+    /**
+     * apaga o objeto da arvore
+     * @param key objeto a ser apagado
+     * @return  True se retirado corretamente, false caso ja exista
+     */
     public boolean del(String key) {
         boolean result = false;
 
@@ -34,7 +50,11 @@ public class ABB<T> {
 
         return result;
     }
-    
+
+    /**
+     * retorna a quantidade de vertices da arvore
+     * @return
+     */
     public int size(){
         return this.data.size();
     }
@@ -44,6 +64,10 @@ public class ABB<T> {
         return allData;
     }
 
+    /**
+     * retorna todas as chaves primarias da arvore
+     * @return
+     */
     public String[] allKeys() {
         String[] keys = new String[this.data.size()];
         int i = 0;

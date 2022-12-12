@@ -9,7 +9,7 @@ public class GrafoCompleto extends Grafo {
      *
      * @param nome
      */
-    public GrafoCompleto(String nome, int ordem) throws Exception {
+    public GrafoCompleto(String nome, int ordem) {
         super(nome);
 
         this.ordem = ordem;
@@ -31,7 +31,12 @@ public class GrafoCompleto extends Grafo {
         this.vertices.add(nome, novo);
     }
 
-    private void addAresta(String origem, String destino) throws Exception {
+    /**
+     * adiciona a aresta no grafo
+     * @param origem vertice de origem
+     * @param destino vertice de destino
+     */
+    private void addAresta(String origem, String destino){
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
