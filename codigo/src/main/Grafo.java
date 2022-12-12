@@ -25,7 +25,6 @@ package main;
  */
 
 import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * Classe básica para um Grafo simples
@@ -46,11 +45,16 @@ public class Grafo {
      * @param id do Vertice procurado
      * @return returna o Vertice ou null caso não exista
      */
-    public Vertice existeVertice(String id) {
-        return this.vertices.find(id);
+    public Vertice existeVertice(String id) throws Exception {
+        try {
+            return this.vertices.find(id);
+        } catch (Exception e) {
+            throw new Exception("Vertice não existe");
+        }
+
     }
 
-    public void grauEVizinhos(String id) {
+    public void grauEVizinhos(String id) throws Exception {
         Vertice vertice = this.existeVertice(id);
 
         System.out.println("Grau: " + vertice.grau());
@@ -64,7 +68,7 @@ public class Grafo {
      * @param destino Vértice de destino
      * @return null se a aresta não existe
      */
-    public Aresta existeAresta(String origem, String destino) {
+    public Aresta existeAresta(String origem, String destino) throws Exception {
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
         if (saida != null && chegada != null) {
@@ -127,10 +131,31 @@ public class Grafo {
         return grafoClone;
     }
 
+    public double caminhoMinimo(Vertice origem, Vertice destino) {
+        origem.setDistance(0);
+        origem.visitar();
+        double distancia = destino.getDistance();
+        List<Vertice> caminhoMinimo = new ArrayList<>();
 
-    //REFERENCIA
+        if(origem.getVizinhos().contains(destino)) {
+            destino.setDistance((origem.getDistance() + origem.existeAresta(destino.getId()).peso()));
+            destino.setAnterior(origem);
 
+            return destino.getDistance();
+        }
 
+        for(Vertice vizinho : origem.getVizinhos()) {
+            if(!vizinho.visitado()) {
+                vizinho.setDistance(origem.getDistance() + origem.existeAresta(vizinho.getId()).peso());
+                double novaDistancia = caminhoMinimo(vizinho, destino);
+                if (distancia > novaDistancia) {
+                    distancia = novaDistancia;
+                }
+            }
+        }
+
+        return distancia;
+    }
 
 }
     

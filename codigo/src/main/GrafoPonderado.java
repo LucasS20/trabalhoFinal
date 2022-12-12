@@ -61,7 +61,7 @@ public class GrafoPonderado extends GrafoMutavel {
     }
 
     
-    public boolean addAresta(String origem, String destino, double peso){
+    public boolean addAresta(String origem, String destino, double peso) throws Exception {
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);

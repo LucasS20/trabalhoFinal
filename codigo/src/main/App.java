@@ -1,47 +1,76 @@
 package main;
 
-import java.lang.management.GarbageCollectorMXBean;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class App {
 
     public static void main(String[] args) throws Exception {
+        Scanner teclado = new Scanner(System.in);
+        String opcao;
         GrafoMutavel grafoCidades = gerarGrafo();
 
-//       grafoCidades.grauEVizinhos("São Paulo, São Paulo");
-//
-//       delVerticeOuAresta(grafoCidades);
+        do {
+            System.out.println("Escolha o qual das opções você quer executar");
+            System.out.println("1. Grau e Vizinhos\n2.delVerticeOudelAresta\n3.Componentes\n4.CaminhoMinimo");
+            opcao = teclado.nextLine();
 
+            switch (opcao.toLowerCase()) {
+                case "1" -> {
+                    System.out.println("Qual cidade você deseja consultar o Grau e os Vizinhos " +
+                            "(Modelo: nome_cidade, nome_estado): ");
+                    String cidade = teclado.nextLine();
+                    grafoCidades.grauEVizinhos(cidade);
+                }
 
-        components(grafoCidades);
+                case "2" -> delVerticeOuAresta(grafoCidades);
 
-//        getCaminhoMinimo("Belo Horizonte, Minas Gerais", "Abaeté, Minas Gerais", grafoCidades);
+                case "3" -> System.out.println("Incompleto");
 
+                case "4" -> {
+                    System.out.println("Digite a cidade e estado de origem da Aresta que quer deletar " +
+                            "(Modelo: nome_cidade, nome_estado):");
+                    String origem = teclado.nextLine();
+                    System.out.println("Digite a cidade e estado destino que quer deletar " +
+                            "(Modelo: nome_cidade, nome_estado):");
+                    String destino = teclado.nextLine();
+                    System.out.println(
+                            grafoCidades.caminhoMinimo(
+                                    grafoCidades.vertices.find(origem),
+                                    grafoCidades.vertices.find(destino)
+                            ));
+                }
 
+                case "fim" -> System.out.println("Sistema encerrado");
+
+                default -> System.out.println("Opção invalida");
+
+            }
+        } while(!opcao.equals("FIM"));
     }
 
-    private static void delVerticeOuAresta(GrafoMutavel grafoCidades) {
+    private static void delVerticeOuAresta(GrafoMutavel grafoCidades) throws Exception {
         Scanner teclado = new Scanner(System.in);
         String opcao;
 
-        System.out.println("Vertice ou Aresta");
+        System.out.println("Deseja deletar Vertice ou Aresta");
         opcao = teclado.nextLine();
 
-        switch (opcao) {
+        switch (opcao.toLowerCase()) {
             case "vertice" -> {
-                System.out.println("Digite a cidade e estado que quer deletar: ");
+                System.out.println("Digite a cidade e estado que quer deletar " +
+                        "(Modelo: nome_cidade, nome_estado):");
                 String cidade = teclado.nextLine();
                 grafoCidades.removeVertice(cidade);
             }
             case "aresta" -> {
-                System.out.println("Digite a cidade e estado de origem da Aresta que quer deletar: ");
-                String cidade = teclado.nextLine();
-                    System.out.println("Digite a cidade e estado destino que quer deletar: ");
-                String estado = teclado.nextLine();
-                grafoCidades.delAresta(cidade, estado);
+                System.out.println("Digite a cidade e estado de origem da Aresta que quer deletar " +
+                        "(Modelo: nome_cidade, nome_estado):");
+                String origem = teclado.nextLine();
+                    System.out.println("Digite a cidade e estado destino que quer deletar " +
+                            "(Modelo: nome_cidade, nome_estado):");
+                String destino = teclado.nextLine();
+                grafoCidades.delAresta(origem, destino);
             }
         }
     }
@@ -74,23 +103,4 @@ public class App {
         return grafoCidades;
     }
 
-    private static void getCaminhoMinimo(String origem, String destino, GrafoMutavel grafoCidades) {
-        Grafo caminhos = Dijkstra.caminhosMaisCurtos(grafoCidades, grafoCidades.existeVertice(origem));
-        List<Vertice> vertice = Arrays.stream(caminhos.getVertices()).filter(v -> v.getDistance() != Integer.MAX_VALUE).toList();
-
-        System.out.println(vertice.stream().filter(v -> v.getId().equals(destino)).findFirst().get().getDistance());
-    }
-
-    private static void components(Grafo grafoCidades) {
-        List<Vertice> vertices = new ArrayList<>();
-        for (Vertice cidade : grafoCidades.getVertices()) {
-            Grafo caminhos = grafoCidades.clone("Grafocaminhos");
-            if(!vertices.contains(cidade)) {
-                caminhos = Dijkstra.caminhosMaisCurtos(caminhos, caminhos.existeVertice(cidade.getId()));
-                vertices = Arrays.stream(caminhos.getVertices()).filter(v -> v.getDistance() != Integer.MAX_VALUE).toList();
-            }
-
-            System.out.println(vertices);
-        }
-    }
 }

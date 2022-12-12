@@ -33,7 +33,9 @@ public class Vertice {
     private final String id;
     private Map<Vertice, Integer> adjascentes = new HashMap<>();
     private List<Vertice> caminhos = new LinkedList<>();
-    private Integer distancias = Integer.MAX_VALUE;
+    private double distancias;
+
+    private Vertice anterior;
 
     /**
      * Construtor para criação de vértice identificado
@@ -44,10 +46,7 @@ public class Vertice {
         this.id = id;
         this.arestas = new ABB<Aresta>();
         this.visitado = false;
-    }
-
-    public Vertice() {
-        this.id = "";
+        this.distancias = Integer.MAX_VALUE;
     }
 
     /**
@@ -117,11 +116,11 @@ public class Vertice {
 
 
 
-    public void setDistance(int i) {
+    public void setDistance(double i) {
         this.distancias = i;
     }
 
-    public Integer getDistance() {
+    public Double getDistance() {
         return distancias;
     }
 
@@ -137,4 +136,22 @@ public class Vertice {
         return this.adjascentes;
     }
 
+    public Aresta[] getArestas() {
+        Aresta[] arestasArray = new Aresta[this.arestas.size()];
+        return arestas.allElements(arestasArray);
+    }
+
+    public void setAnterior(Vertice anterior) {
+        this.anterior = anterior;
+    }
+
+    public Vertice getAnterior() {
+        return this.anterior;
+    }
+
+    public void resetar(){
+        this.distancias = Integer.MAX_VALUE;
+        this.visitado = false;
+        this.anterior = null;
+    }
 }

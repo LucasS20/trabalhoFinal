@@ -137,7 +137,7 @@ public class GrafoMutavel extends Grafo {
      * @param destino Vértice de destino
      * @return true se adicionou e false se não
      */
-    public boolean addAresta(String origem, String destino){
+    public boolean addAresta(String origem, String destino) throws Exception {
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
@@ -149,7 +149,7 @@ public class GrafoMutavel extends Grafo {
         return adicionou;
     }
     
-    public boolean delAresta(String origem, String destino) {
+    public boolean delAresta(String origem, String destino) throws Exception {
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
         return saida.delAresta(origem) && chegada.delAresta(destino);
