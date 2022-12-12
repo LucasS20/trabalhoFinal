@@ -39,6 +39,8 @@ public class App {
                                     grafoCidades.vertices.find(origem),
                                     grafoCidades.vertices.find(destino)
                             ));
+
+                    grafoCidades.clearVisitas();
                 }
 
                 case "fim" -> System.out.println("Sistema encerrado");

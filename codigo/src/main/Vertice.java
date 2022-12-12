@@ -124,17 +124,6 @@ public class Vertice {
         return distancias;
     }
 
-    public List<Vertice> getCaminhos() {
-        return caminhos;
-    }
-
-    public void setCaminhos(List<Vertice> caminhos) {
-        this.caminhos = caminhos;
-    }
-
-    public Map<Vertice, Integer> getAdjascentes() {
-        return this.adjascentes;
-    }
 
     public Aresta[] getArestas() {
         Aresta[] arestasArray = new Aresta[this.arestas.size()];
@@ -145,13 +134,4 @@ public class Vertice {
         this.anterior = anterior;
     }
 
-    public Vertice getAnterior() {
-        return this.anterior;
-    }
-
-    public void resetar(){
-        this.distancias = Integer.MAX_VALUE;
-        this.visitado = false;
-        this.anterior = null;
-    }
 }

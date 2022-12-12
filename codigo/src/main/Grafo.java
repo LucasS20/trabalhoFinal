@@ -59,7 +59,14 @@ public class Grafo {
 
         System.out.println("Grau: " + vertice.grau());
 
-        vertice.getVizinhos().forEach(v -> System.out.println("Cidades vizinhas: " + v.getId()));
+        vertice.getVizinhos().forEach(v -> {
+            try {
+                System.out.println("Cidades vizinhas: " + v.getId());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        });
     }
 
     /**
@@ -157,6 +164,13 @@ public class Grafo {
         return distancia;
     }
 
+    public void clearVisitas() {
+        Vertice[] v = new Vertice[this.vertices.size()];
+        v = this.vertices.allElements(v);
+
+        for (Vertice vertice : v)
+            vertice.limparVisita();
+    }
 }
     
 
